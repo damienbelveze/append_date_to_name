@@ -1,11 +1,19 @@
 import os
 from datetime import datetime
+import re
 
 def get_file_creation_date(filename):
-    filetime = os.path.getctime(filename)
-    return datetime.fromtimestamp(filetime).strftime('%Y%m%d')
+    try:
+        filetime = os.path.getctime(filename)
+    except FileNotFoundError as e:
+        print(f"File not found: {e}")
+        return None
+    else:
+        return datetime.fromtimestamp(filetime).strftime('%Y%m%d')
 
 def rename_files_in_directory(dir, ext=['docx', 'odt']):
+    date_pattern = re.compile(r'\d{4,8}')  # This pattern will match any sequence of four to eight digits (i.e., a date in YYYYMMDD format)
+    
     for root, dirs, files in os.walk(dir):
         for file in files:
             if any(file.endswith('.' + e) for e in ext):
@@ -18,6 +26,12 @@ def rename_files_in_directory(dir, ext=['docx', 'odt']):
                  # Check if filename already begins with the date
                 if base.startswith(creation_date):
                     print(f"Skipping {filename}, as it appears to already have a creation date.")
+                    continue  # Skip this file and move on to the next one
+
+                # Check if filename already begins with a date in YYYYMMDD format
+                match = re.match(date_pattern, base)
+                if match:  # If base starts with a string containing a date
+                    print(f"Skipping {filename}, as it appears to start with a date.")
                     continue  # Skip this file and move on to the next one
 
                 new_name = f"{creation_date}_{base}{extension}"

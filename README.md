@@ -2,7 +2,9 @@ Ce script récupère la date de création des fichiers en .docx ou .odt contenus
 
 Dans un dossier donné, un document intitulé texte.odt créé le 23 avril 2024 sera automatiquement renommé 20240423_texte.odt
 
-Ce script a été créé avec l'aide du modèle de langage DeepSeek habergé par l'Université de Rennes le 3 juillet 2024
+Si le nom du fichier commence déjà par une date, qu'il s'agisse de la date de création du fichier ou bien d'une autre date (YYYY, YYYYMM, MMYYYY, YYYYDDMM ou YYYYMMDD), le nom du fichier est inchangé. 
+
+Ce script a été créé avec l'aide du modèle de langage DeepSeek habergé par l'Université de Rennes le 6 juillet 2024
 
 # comment faire fonctionner le script avec un ordinateur Windows
 
@@ -32,4 +34,12 @@ Appuyer sur entrée.
 Ouvrir le script dans un éditeur de texte (blocnote, VScode, notepad++)
 Faire une recherche (Ctrl+F) sur ' dir, ext= ' dans la parenthèse qui suit, ajouter l'extension demandée. 
 
+# Problèmes connus 
+
+Si le nom du dossier est considéré comme invalide dans le terminal, cela peut être du au fait que le dossier comporte des espaces. 
+Remplacez les espaces des tirets bas ( _ ) ou fournissez -sur Windows- des chemins en utilisant cette syntaxe : 
+
+```shell
+"C:\\mon dossier\\mon sous-dossier"
+```
 
