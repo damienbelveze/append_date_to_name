@@ -14,6 +14,12 @@ def rename_files_in_directory(dir, ext=['docx', 'odt']):
                 
                 # Correctly extract the base name and extension
                 base, extension = os.path.splitext(file)
+
+                 # Check if filename already begins with the date
+                if base.startswith(creation_date):
+                    print(f"Skipping {filename}, as it appears to already have a creation date.")
+                    continue  # Skip this file and move on to the next one
+
                 new_name = f"{creation_date}_{base}{extension}"
                 
                 # Form the full path for the new filename
@@ -23,7 +29,7 @@ def rename_files_in_directory(dir, ext=['docx', 'odt']):
 
 def get_directory():
     while True:
-        dir = input("Please enter the directory in which you want to make changes: ")
+        dir = input("Please enter the directory (e.g., 'C:\\my directory') in which you want to make changes: ")
         
         if os.path.isdir(dir):
             return dir
