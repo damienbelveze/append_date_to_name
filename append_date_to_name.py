@@ -1,6 +1,8 @@
 import os
 from datetime import datetime
 import re
+from watermark import watermark
+
 
 def get_file_creation_date(filename):
     try:
@@ -53,4 +55,5 @@ def get_directory():
 if __name__ == "__main__":
     dir = get_directory()
     rename_files_in_directory(dir)
-
+print(watermark())
+print(watermark(packages="*"))
